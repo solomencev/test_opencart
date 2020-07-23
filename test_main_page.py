@@ -6,7 +6,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
 
-
 class test_open_cart(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
@@ -37,7 +36,6 @@ class test_open_cart(unittest.TestCase):
         time.sleep(1)
         select = Select(wd.find_element_by_xpath('//*[@id="input-zone"]'))
         select.select_by_value(contact.zone_in_country)
-
 
     def create_contact(self, wd):
         wd.find_element_by_xpath('//*[@id="content"]/form/div/div[2]/input').click()
