@@ -14,29 +14,29 @@ class test_open_cart(unittest.TestCase):
 
     def open_page(self, wd):
         wd.get('https://demo.opencart.com/index.php?route=account/login')
-        # wd.webdriver.Chrome()
         wd.maximize_window()
 
-    def login(self, wd):
-        wd.find_element_by_xpath('//*[@id="input-email"]').send_keys('exjfizhh@firste.ml')
-        wd.find_element_by_xpath('//*[@id="input-password"]').send_keys('admin')
+    def login(self, wd, user_name, password):
+        wd.find_element_by_xpath('//*[@id="input-email"]').send_keys(user_name)
+        wd.find_element_by_xpath('//*[@id="input-password"]').send_keys(password)
         wd.find_element_by_xpath('//*[@id="content"]/div/div[2]/div/form/input').click()
 
     def open_book_contact(self,wd):
         wd.find_element_by_xpath('//*[@id="column-right"]/div/a[4]').click()
         wd.find_element_by_xpath('//*[@id="content"]/div/div[2]/a').click()
 
-    def fill_required_fields(self, wd):
-        wd.find_element_by_xpath('//*[@id="input-firstname"]').send_keys('Alexsandr')
-        wd.find_element_by_xpath('//*[@id="input-lastname"]').send_keys('Ivanov')
-        wd.find_element_by_xpath('//*[@id="input-address-1"]').send_keys('Moscow, Lenina streer, house 8')
-        wd.find_element_by_xpath('//*[@id="input-city"]').send_keys('Moscow')
-        wd.find_element_by_xpath('//*[@id="input-postcode"]').send_keys(152121)
+    def fill_required_fields(self, wd, first_name, last_name, adress, city, post_code, value_of_country,
+                             zone_in_country):
+        wd.find_element_by_xpath('//*[@id="input-firstname"]').send_keys(first_name)
+        wd.find_element_by_xpath('//*[@id="input-lastname"]').send_keys(last_name)
+        wd.find_element_by_xpath('//*[@id="input-address-1"]').send_keys(adress)
+        wd.find_element_by_xpath('//*[@id="input-city"]').send_keys(city)
+        wd.find_element_by_xpath('//*[@id="input-postcode"]').send_keys(post_code)
         select = Select(wd.find_element_by_xpath('//*[@id="input-country"]'))
-        select.select_by_value('176')
+        select.select_by_value(value_of_country)
         time.sleep(1)
         select = Select(wd.find_element_by_xpath('//*[@id="input-zone"]'))
-        select.select_by_value('2761')
+        select.select_by_value(zone_in_country)
 
 
     def create_contact(self, wd):
@@ -50,9 +50,11 @@ class test_open_cart(unittest.TestCase):
     def test_add_contacts(self):
         wd = self.wd
         self.open_page(wd)
-        self.login(wd)
+        self.login(wd, user_name='exjfizhh@firste.ml', password='admin')
         self.open_book_contact(wd)
-        self.fill_required_fields(wd)
+        self.fill_required_fields(wd, first_name='Alexsandr', last_name='Ivanov',
+                                  adress='Moscow, Lenina streer, house 8', city='Moscow', post_code=152121,
+                                  value_of_country='176', zone_in_country='2761')
         self.create_contact(wd)
         self.exit_from_profile(wd)
 
