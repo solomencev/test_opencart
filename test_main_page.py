@@ -11,7 +11,7 @@ class test_open_cart(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
 
-
+#no comment
     def open_page(self, wd):
         wd.get('https://demo.opencart.com/index.php?route=account/login')
         wd.maximize_window()
