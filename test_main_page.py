@@ -1,5 +1,6 @@
 import time
 import unittest
+from contact import Contact
 
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -25,18 +26,17 @@ class test_open_cart(unittest.TestCase):
         wd.find_element_by_xpath('//*[@id="column-right"]/div/a[4]').click()
         wd.find_element_by_xpath('//*[@id="content"]/div/div[2]/a').click()
 
-    def fill_required_fields(self, wd, first_name, last_name, adress, city, post_code, value_of_country,
-                             zone_in_country):
-        wd.find_element_by_xpath('//*[@id="input-firstname"]').send_keys(first_name)
-        wd.find_element_by_xpath('//*[@id="input-lastname"]').send_keys(last_name)
-        wd.find_element_by_xpath('//*[@id="input-address-1"]').send_keys(adress)
-        wd.find_element_by_xpath('//*[@id="input-city"]').send_keys(city)
-        wd.find_element_by_xpath('//*[@id="input-postcode"]').send_keys(post_code)
+    def fill_required_fields(self, wd, contact):
+        wd.find_element_by_xpath('//*[@id="input-firstname"]').send_keys(contact.first_name)
+        wd.find_element_by_xpath('//*[@id="input-lastname"]').send_keys(contact.last_name)
+        wd.find_element_by_xpath('//*[@id="input-address-1"]').send_keys(contact.adress)
+        wd.find_element_by_xpath('//*[@id="input-city"]').send_keys(contact.city)
+        wd.find_element_by_xpath('//*[@id="input-postcode"]').send_keys(contact.post_code)
         select = Select(wd.find_element_by_xpath('//*[@id="input-country"]'))
-        select.select_by_value(value_of_country)
+        select.select_by_value(contact.value_of_country)
         time.sleep(1)
         select = Select(wd.find_element_by_xpath('//*[@id="input-zone"]'))
-        select.select_by_value(zone_in_country)
+        select.select_by_value(contact.zone_in_country)
 
 
     def create_contact(self, wd):
@@ -52,9 +52,9 @@ class test_open_cart(unittest.TestCase):
         self.open_page(wd)
         self.login(wd, user_name='exjfizhh@firste.ml', password='admin')
         self.open_book_contact(wd)
-        self.fill_required_fields(wd, first_name='Alexsandr', last_name='Ivanov',
+        self.fill_required_fields(wd, Contact(first_name='Alexsandr', last_name='Ivanov',
                                   adress='Moscow, Lenina streer, house 8', city='Moscow', post_code=152121,
-                                  value_of_country='176', zone_in_country='2761')
+                                  value_of_country='176', zone_in_country='2761'))
         self.create_contact(wd)
         self.exit_from_profile(wd)
 
