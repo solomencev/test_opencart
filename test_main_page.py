@@ -1,7 +1,6 @@
 import time
 import unittest
 from contact import Contact
-
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
@@ -11,7 +10,6 @@ class test_open_cart(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
 
-#no comment
     def open_page(self, wd):
         wd.get('https://demo.opencart.com/index.php?route=account/login')
         wd.maximize_window()
